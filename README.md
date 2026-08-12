@@ -24,7 +24,7 @@ This project demonstrates how to build a backend REST API with CRUD (Create, Rea
 - **MongoDB**
 - **Mongoose**
 - **dotenv**
-- **Postman** for API testing
+- **Postman** for API testing.
 
 ## 📂 Project Structure
 
