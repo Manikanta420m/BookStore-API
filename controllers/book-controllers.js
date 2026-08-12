@@ -69,11 +69,60 @@ const addNewBook=async(req,res)=>{
       console.log(e);
    }
 }
-const updateSingleBook=async(req,res)=>{
-   
-}
-const deleteBook=async(req,res)=>{
 
+const updateSingleBook=async(req,res)=>{
+    try{
+      const updatedBookFormData=req.body;
+      const curBookId=req.params.id;
+      const updatedBook=await Book.findByIdAndUpdate(curBookId,updatedBookFormData,{
+         new :true,
+      });
+      if(!updatedBook){
+         res.status(404).json({
+            success : false,
+            message : 'book with cur Id not found',
+         });
+      }
+      else{
+         res.status(200).json({
+             success : true,
+             data : updatedBook
+          });
+      }
+    }
+    catch(e){
+      console.log(e);
+      res.status(500).json({
+            success : false,
+            message : 'somethong went wrong',
+         });
+    }
+}
+
+const deleteBook=async(req,res)=>{
+   try{
+      const getCurrBookId=req.params.id;
+      const deletedBook=await Book.findByIdAndDelete(getCurrBookId);
+      if(!deletedBook){
+          res.status(404).json({
+            success : false,
+            message : 'book with cur Id not found',
+         });
+      }
+      else{
+          res.status(200).json({
+             success : true,
+             data : deletedBook
+          });
+      }
+   }
+   catch(e){
+      console.log(e);
+      res.status(500).json({
+            success : false,
+            message : 'somethong went wrong',
+         });
+   }
 }
 
 module.exports={getAllBooks,getSingleBookById,addNewBook,updateSingleBook,deleteBook};
